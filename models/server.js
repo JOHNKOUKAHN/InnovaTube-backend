@@ -6,6 +6,8 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
 
+    //Middlewares
+    this.middlewares();
 
     //Rutas
     this.routes();
@@ -16,6 +18,13 @@ class Server {
     this.app.use('/', (req, res) => {
       res.send("Hola Mundo Express");
     });
+  }
+  middlewares() {
+
+
+    //directorio publico
+    this.app.use(express.static('public'));
+
   }
 
 
