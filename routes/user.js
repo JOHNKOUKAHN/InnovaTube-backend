@@ -18,13 +18,15 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  res.status(200).json({ ok: true, msg: "POST " })
+  const body = req.body
+  res.status(200).json({ ok: true, body, msg: "POST " })
 
 })
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  res.status(200).json({ ok: true, id, msg: "PUT" })
+  const body = req.body
+  res.status(200).json({ ok: true, id, body, msg: "PUT" })
 
 
 })
