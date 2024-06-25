@@ -8,18 +8,21 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
 
+    //rutas
+    this.usersPath = '/innovaTube/api/user';
+
+
     //Middlewares
     this.middlewares();
 
-    //Rutas
+    //Enrutador
     this.routes();
   }
 
   routes() {
 
-    this.app.use('/', (req, res) => {
-      res.send("Hola Mundo Express");
-    });
+    this.app.use(this.usersPath, require('../routes/user'));
+
   }
   middlewares() {
 
