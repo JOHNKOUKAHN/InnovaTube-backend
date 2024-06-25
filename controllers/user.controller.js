@@ -1,4 +1,6 @@
 const { response } = require("express");
+const bcryptjs = require('bcryptjs');
+
 const User = require("../models/user");
 
 const userGet = async (req, res = response) => {
@@ -62,6 +64,9 @@ const userPost = async (req, res) => {
     const { fullName, userName, password, role, email } = req.body;
     const user = new User({ fullName, userName, password, email });
 
+    //Eccriptar contraseña
+    const salt = bcryptjs.genSaltSync();
+    user.password = bcryptjs.hashSync(password, salt);
 
     await user.save();
 
@@ -87,7 +92,7 @@ const userPut = async (req, res) => {
   try {
 
     const { id } = req.params;
-    const { _id, ...rest } = req.body;
+    const { _id, password, ...rest } = req.body;
     const user = await User.findByIdAndUpdate(id, rest);
 
     res.json({
@@ -109,8 +114,24 @@ const userPut = async (req, res) => {
 }
 
 const userDelete = async (req, res) => {
-  const id = req.params.id
-  res.status(200).json({ ok: true, id, msg: "DELETE user Controller" })
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndDelete(id)
+
+    res.json({
+      ok: true,
+      msg: 'delete vito controlador',
+      id,
+      user
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      errorMsg: 'Contacte al administrador',
+      error
+    });
+  }
 }
 
 const userPatch = async (req, res) => {
