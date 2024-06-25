@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { dbConnection } = require('../database/config');
 
 
 class Server {
@@ -12,6 +13,9 @@ class Server {
     this.usersPath = '/innovaTube/api/user';
 
 
+    //Conexion a base de datos
+    this.conectarDB();
+
     //Middlewares
     this.middlewares();
 
@@ -23,6 +27,10 @@ class Server {
 
     this.app.use(this.usersPath, require('../routes/user.routes'));
 
+  }
+
+  async conectarDB() {
+    await dbConnection();
   }
   middlewares() {
 
