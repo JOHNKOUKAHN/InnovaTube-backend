@@ -10,6 +10,7 @@ class Server {
     this.port = process.env.PORT;
 
     //rutas
+    this.authPath = '/innovaTube/api/auth';
     this.usersPath = '/innovaTube/api/user';
 
 
@@ -26,6 +27,7 @@ class Server {
   routes() {
 
     this.app.use(this.usersPath, require('../routes/user.routes'));
+    this.app.use(this.authPath, require('../routes/auth.routes'));
 
   }
 
