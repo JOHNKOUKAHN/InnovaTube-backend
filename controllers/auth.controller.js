@@ -1,4 +1,4 @@
-const user = require("../models/user");
+const { generateJWT } = require("../helpers/generate-jwt");
 const User = require("../models/user");
 const bcryptjs = require('bcryptjs');
 
@@ -27,11 +27,13 @@ const login = async (req, res) => {
         msg: 'Usuario y/o contraseña incorrectos'
       });
     }
+    const token = await generateJWT(user.id);
 
     res.json({
       ok: true,
       msg: 'Sesion iniciada exitosamente',
       user,
+      token
     });
 
   } catch (error) {
