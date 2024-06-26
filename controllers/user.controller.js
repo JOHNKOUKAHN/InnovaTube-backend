@@ -64,6 +64,17 @@ const userPost = async (req, res) => {
     const { fullName, userName, password, role, email } = req.body;
     const user = new User({ fullName, userName, password, email });
 
+    //Verificar si correo existe
+    const emailExist = await User.findOne({ email });
+    if (emailExist) {
+      return res.status(400).json({ ok: false, msg: "Correo no disponible" })
+    }
+    //Verificar si correo existe
+    const userExist = await User.findOne({ userName });
+    if (userExist) {
+      return res.status(400).json({ ok: false, msg: "Nombre de usuario no disponible" })
+    }
+
     //Eccriptar contraseña
     const salt = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync(password, salt);
