@@ -17,7 +17,6 @@ router.get('/:id', [
 ], userGetByID)
 
 router.post('/', [
-  check('id', 'ID no válida').isMongoId(),
   check('fullName', 'El nombre es obligatorio').not().isEmpty(),
   check('userName', 'El nombre de usuario es obligatorio').not().isEmpty(),
   check('email', 'El correo es obligatorio').not().isEmpty(),

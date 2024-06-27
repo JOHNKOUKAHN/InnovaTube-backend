@@ -93,7 +93,7 @@ const userPost = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       ok: false,
-      errorMsg: 'Contacte al administrador',
+      msg: 'Contacte al administrador',
       error
     });
   }
