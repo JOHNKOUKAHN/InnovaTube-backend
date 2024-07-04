@@ -18,6 +18,7 @@ const userSchema = Schema({
     required: [true, 'La contraseña es obligatoria']
   },
   favorites: {
+    type: [Object],
     default: []
   }
 
